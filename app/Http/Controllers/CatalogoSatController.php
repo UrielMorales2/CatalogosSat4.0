@@ -15,13 +15,18 @@ class CatalogoSatController extends Controller
 
     public function FormaPago_agregar(Request $request)
     {  
-        $formapago = new SatFormaPago();
-        $formapago->fill($request->all());
-        
-        $formapago->save();
-        return response($formapago, 200);
-
+        try{
+            // return "hola";
+            $formapago = new SatFormaPago();
+            $formapago->fill($request->all());
             
+            $formapago->save();
+            return response($formapago, 200);
+        } catch (\Exception $e) {
+            // return "holaa";
+            return response( "el campo Catálogo Forma Pago ya existe, ingrese uno diferente", 400);
+            // return    response()->json([' error' , "el campo Catálogo Forma Pago ya existe, ingrese uno diferente" .$e->getMessage()]);
+        }   
     }
 
 
@@ -82,11 +87,8 @@ class CatalogoSatController extends Controller
             $data=[
                 'status'=>$formapago,
                 'msg'=>'update'
-            ];
-       
+            ];       
             return response()->json($data);
-          
-
     }
     
     // public function FormaPago_cambiarEstatus( Request $request )

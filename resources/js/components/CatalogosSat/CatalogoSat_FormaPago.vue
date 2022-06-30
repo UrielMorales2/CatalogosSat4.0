@@ -1,5 +1,11 @@
 <template>
   <div>
+    <v-alert   :value="mostrar_error" :timeout="timeout"    type="error"   transition="scale-transition">
+      {{errorApi}}
+    </v-alert>
+    <h1 class="text-center title__gestion">Catálogo de Forma de Pago.</h1>
+    <hr />
+    <!-- ---------------tabla-------------- -->
     <v-card class="mx-auto mt-100" color="transparent" max-width="1280" elevation="0"> 
       <v-btn type="button" class="mx-2" fab dark  color="#1976D2" @click="abrirModal(false);"><v-icon>mdi-plus</v-icon></v-btn>
       <v-simple-table>
@@ -27,36 +33,43 @@
       </v-simple-table>
     </v-card>
       
-      <!--ventana nuevo y editar n -->
-      <v-dialog v-model="dialog" width="1200" height="1000" max-height="1200" max-width="2000">
-        <v-card>
-          <v-card-title class="table--title"><h4>{{tituloModal}}</h4> <v-spacer></v-spacer> <v-btn @click="cerrarModal();"  type="button" data-dismiss="modal" color="red" fab small dark> X </v-btn></v-card-title>
-          <v-card-text></v-card-text>
-          <v-container>
-            <v-row>
-              
-              <v-col cols="12" md="4">
-                <v-text-field  v-model="formaPago.catalogo_FormaPago"  label="catalogo FormaPago" required placeholder="mdi-ejemplo"></v-text-field>
-              </v-col>
-              
-              <v-col cols="12" md="4">
-                <v-text-field v-model="formaPago.descripcion"  label="Descripcion" required  placeholder="ejeplo"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" >
-                <v-switch v-if="modificar" v-model="formaPago.status"></v-switch>
-                <!-- <v-select  v-if="!modificar" v-model="formaPago.status" :items="items" label="status " clearable></v-select> -->
-                <!-- <v-text-field v-model="formaPago.status"  :rules="nameRules" label="Ruta" required  placeholder="status"></v-text-field> -->
-              </v-col>
-              
-            </v-row>
-          </v-container>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="cerrarModal();" type="button" data-dismiss="modal" color="error" > Cancelar</v-btn>
-            <v-btn  @click="guardar();"  type="submit " data-dismiss="modal" color="green darken-1" >Guardar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+    <!--ventana nuevo y editar n -->
+    <v-dialog v-model="dialog" width="1200" height="1000" max-height="1200" max-width="2000">
+      <v-card>
+        <v-card-title class="table--title"><h4>{{tituloModal}}</h4> <v-spacer></v-spacer> <v-btn @click="cerrarModal();"  type="button" data-dismiss="modal" color="red" fab small dark> X </v-btn></v-card-title>
+        <v-card-text></v-card-text>
+        <v-container>
+          <!-- 
+          <v-alert   :value="mostrar_error" duration="4000"  type="error"   transition="scale-transition">
+            {{errorApi}}
+          </v-alert> -->
+
+          <v-row>
+            
+            <v-col cols="12" md="4">
+              <v-text-field  v-model="formaPago.catalogo_FormaPago"  label="catalogo FormaPago" required placeholder="mdi-ejemplo"></v-text-field>
+            </v-col>
+            
+            <v-col cols="12" md="4">
+              <v-text-field v-model="formaPago.descripcion"  label="Descripcion" required  placeholder="ejeplo"></v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="4" >
+              <v-switch v-if="modificar" v-model="formaPago.status"></v-switch>
+              <!-- <v-select  v-if="!modificar" v-model="formaPago.status" :items="items" label="status " clearable></v-select> -->
+              <!-- <v-text-field v-model="formaPago.status"  :rules="nameRules" label="Ruta" required  placeholder="status"></v-text-field> -->
+            </v-col>
+            
+          </v-row>
+        </v-container>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="cerrarModal();" type="button" data-dismiss="modal" color="error" > Cancelar</v-btn>
+          <!-- <v-btn  @click="mostrar_error = !mostrar_error   ;" type="submit " data-dismiss="modal" color="green darken-1" >Guardar</v-btn> -->
+          <v-btn  @click="guardar()   ;" type="submit " data-dismiss="modal" color="green darken-1" >Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -65,6 +78,12 @@
     name:'catalogo_FormaPago',
     data () {
       return {
+        // recursos para la alerta
+        mostrar_error: false,
+        errorApi:'Algo salio mal. Agrega un catalogo de forma de pago diferente',
+        timeout: 2000,
+        // ------------------
+
         select: this.catalogo_FormaPago,
         items: [
           { value: '0', text: 'Ocultar' },,
@@ -93,13 +112,28 @@
         // alert("Registro Eliminado")
         this.listar();
       }, 
+
+
       async guardar() {
         console.log('guardar'+this.modificar)
         if(this.modificar){
           const res = await axios.post('/api/FormaPago_editar/'+this.catalogo_FormaPago, this.formaPago);
           // console.log(this.id);
         }else{
-          const res = await axios.post('/api/FormaPago_agregar', this.formaPago);
+          const res = await axios.post('/api/FormaPago_agregar', this.formaPago)
+           .then(function(response) {
+            console.log("agregado correctamente");
+            // console.log(response);
+            // this.cerrarModal();
+            // this.listar();
+          })
+          .catch(e=>{
+
+            console.log("salio mal");
+            console.log(e);
+            this.mostrar_error=true;
+            this.errorApi;  
+          });
         }
         this.cerrarModal();
         this.listar();
@@ -117,6 +151,7 @@
           this.formaPago.descripcion=data.descripcion;
           this.formaPago.status=data.status;
         }else{
+          this.mostrar_error= false,
           this.tituloModal="Crear Item";
           this.formaPago.catalogo_FormaPago='';
           this.formaPago.descripcion='';
@@ -158,4 +193,3 @@
     color: #1976D2;
   }
 </style>
-           

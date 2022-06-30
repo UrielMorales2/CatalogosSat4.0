@@ -5437,10 +5437,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'catalogo_FormaPago',
   data: function data() {
     return {
+      // recursos para la alerta
+      mostrar_error: false,
+      errorApi: 'Algo salio mal. Agrega un catalogo de forma de pago diferente',
+      timeout: 2000,
+      // ------------------
       select: this.catalogo_FormaPago,
       items: [{
         value: '0',
@@ -5538,7 +5556,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 _context3.next = 9;
-                return axios.post('/api/FormaPago_agregar', _this3.formaPago);
+                return axios.post('/api/FormaPago_agregar', _this3.formaPago).then(function (response) {
+                  console.log("agregado correctamente"); // console.log(response);
+                  // this.cerrarModal();
+                  // this.listar();
+                })["catch"](function (e) {
+                  console.log("salio mal");
+                  console.log(e);
+                  _this3.mostrar_error = true;
+                  _this3.errorApi;
+                });
 
               case 9:
                 _res = _context3.sent;
@@ -5571,7 +5598,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.formaPago.descripcion = data.descripcion;
         this.formaPago.status = data.status;
       } else {
-        this.tituloModal = "Crear Item";
+        this.mostrar_error = false, this.tituloModal = "Crear Item";
         this.formaPago.catalogo_FormaPago = '';
         this.formaPago.descripcion = '';
         this.formaPago.status = true;
@@ -28965,6 +28992,25 @@ var render = function () {
     "div",
     [
       _c(
+        "v-alert",
+        {
+          attrs: {
+            value: _vm.mostrar_error,
+            timeout: _vm.timeout,
+            type: "error",
+            transition: "scale-transition",
+          },
+        },
+        [_vm._v("\n    " + _vm._s(_vm.errorApi) + "\n  ")]
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "text-center title__gestion" }, [
+        _vm._v("Catálogo de Forma de Pago."),
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
         "v-card",
         {
           staticClass: "mx-auto mt-100",
@@ -29249,7 +29295,7 @@ var render = function () {
                       },
                       on: {
                         click: function ($event) {
-                          return _vm.guardar()
+                          _vm.guardar()
                         },
                       },
                     },
