@@ -24,3 +24,17 @@ Route::post('/FormaPago_agregar', [CatalogoSatController::class, 'FormaPago_agre
 Route::post('/FormaPago_editar/{catalogo_FormaPago}', [CatalogoSatController::class, 'FormaPago_editar']);
 // Route::delete('/FormaPagoEliminar/{catalogo_FormaPago}', [CatalogoSatController::class, 'FormaPagoEliminar']);
 Route::post('/FormaPago_cambiarEstatus/{catalogo_FormaPago}', [CatalogoSatController::class, 'FormaPago_cambiarEstatus']);
+
+
+// ------------------------------RUUTAS DEL CATALOGO MONEDA----------------------------------------------------
+Route::get('/CatalogoSat_Moneda_mostrar', [CatalogoSatController::class, 'CatalogoSat_Moneda_mostrar']);
+Route::post('/CatalogoSat_Moneda_agregar', [CatalogoSatController::class, 'CatalogoSat_Moneda_agregar']);
+Route::post('/CatalogoSat_Moneda_editar/{catalogo_FormaPago}', [CatalogoSatController::class, 'CatalogoSat_Moneda_editar']);
+Route::post('/CatalogoSat_MonedacambiarEstatus/{catalogo_FormaPago}', [CatalogoSatController::class, 'CatalogoSat_MonedacambiarEstatus']);
+
+
+// ------------------------------RUUTAS DEL Catálogo de tipos de comprobante.----------------------------------------------------
+Route::get('/CatalogoSat_TipoDeComprobante_mostrar', [CatalogoSatController::class, 'CatalogoSat_TipoDeComprobante_mostrar']);
+Route::post('/CatalogoSat_TipoDeComprobante_agregar', [CatalogoSatController::class, 'CatalogoSat_TipoDeComprobante_agregar']);
+Route::post('/CatalogoSat_TipoDeComprobante_editar/{id_TipoComprobante}', [CatalogoSatController::class, 'CatalogoSat_TipoDeComprobante_editar']);
+Route::post('/CatalogoSat_TipoDeComprobantecambiarEstatus/{id_TipoComprobante}', [CatalogoSatController::class, 'CatalogoSat_TipoDeComprobantecambiarEstatus']);

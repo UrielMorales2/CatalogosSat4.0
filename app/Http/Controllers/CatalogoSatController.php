@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SatFormaPago;
+use App\Models\SatMoneda;
+use App\Models\SatTipoDeComprobante;
+
 
 class CatalogoSatController extends Controller
 {
@@ -97,5 +100,84 @@ class CatalogoSatController extends Controller
     //     $formapago = SatFormaPago::where('status',$request->status)->update() ;
     //     return $formapago;
     // }
+
+// ------------------------------CATALOGO MONEDA----------------------------------------------------
+    public function CatalogoSat_Moneda_mostrar()
+    {
+        $monedita = SatMoneda::all();
+        return \response($monedita);
+    }
+    public function CatalogoSat_Moneda_agregar(Request $request)
+    {  
+        try{
+            // return "hola";
+            $monedita = new SatMoneda();
+            $monedita->fill($request->all());
+            
+            $monedita->save();
+            return response($monedita, 200);
+        } catch (\Exception $e) {
+            //  return    response()->json([' error' .$e->getMessage()]);
+            return response( "el catalogo Moneda Pago ya existe, ingrese uno diferente", 400);
+        }   
+    }
+
+    public function CatalogoSat_Moneda_editar($id_Catalogo_Moneda, Request $request )
+    {
+        $moneda = SatMoneda::where('id_Catalogo_Moneda',$request->id_Catalogo_Moneda)->update($request->all()) ;
+        return $moneda;
+    }
+
+    public function CatalogoSat_MonedacambiarEstatus($id_Catalogo_Moneda)
+    {        
+        $monedaActual = SatMoneda::where('id_Catalogo_Moneda', $id_Catalogo_Moneda) -> first();        
+        $moneda = SatMoneda::where('id_Catalogo_Moneda', $id_Catalogo_Moneda) -> update(['status' => !$monedaActual->status]);
+       
+            $data=[
+                'status'=>$moneda,
+                'msg'=>'update'
+            ];       
+            return response()->json($data);
+    }
+
+
+    // ------------------------------Catálogo de tipos de comprobante.----------------------------------------------------
+    public function CatalogoSat_TipoDeComprobante_mostrar()
+    {
+        $comprobante = SatTipoDeComprobante::all();
+        return \response($comprobante);
+    }
+    public function CatalogoSat_TipoDeComprobante_agregar(Request $request)
+    {  
+        try{
+            // return "hola";
+            $comprobante = new SatTipoDeComprobante();
+            $comprobante->fill($request->all());
+            
+            $comprobante->save();
+            return response($comprobante, 200);
+        } catch (\Exception $e) {
+            //  return    response()->json([' error' .$e->getMessage()]);
+            return response( $e);
+        }   
+    }
+
+    public function CatalogoSat_TipoDeComprobante_editar($id_TipoComprobante, Request $request )
+    {
+        $comprobante = SatTipoDeComprobante::where('id_TipoComprobante',$request->id_TipoComprobante)->update($request->all()) ;
+        return $comprobante;
+    }
+
+    public function CatalogoSat_TipoDeComprobantecambiarEstatus($id_TipoComprobante)
+    {        
+        $estadoActual = SatTipoDeComprobante::where('id_TipoComprobante', $id_TipoComprobante) -> first();        
+        $comprobante = SatTipoDeComprobante::where('id_TipoComprobante', $id_TipoComprobante) -> update(['status' => !$estadoActual->status]);
+       
+            $data=[
+                'status'=>$comprobante,
+                'msg'=>'update'
+            ];       
+            return response()->json($data);
+    }
 
 }

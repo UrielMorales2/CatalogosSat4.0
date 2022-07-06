@@ -3,7 +3,7 @@
     <v-alert   :value="mostrar_error" :timeout="timeout"    type="error"   transition="scale-transition">
       {{errorApi}}
     </v-alert>
-    <h1 class="text-center title__gestion">Catálogo de Forma de Pago.</h1>
+    <h1 class="text-center title__gestion">Catálogo de Tipos de Comprobante.</h1>
     <hr />
     <!-- ---------------tabla-------------- -->
     <v-card class="mx-auto mt-100" color="transparent" max-width="1280" elevation="0"> 
@@ -12,20 +12,19 @@
         <template v-slot:default>
           <thead>
             <tr class="table--title">
-              <th class="white--text">Catalogo FormaPago</th>
+              <th class="white--text">id Catalogo Tipo De Comprobante</th>
               <th class="white--text">Descrpción</th>
               <th class="white--text">Estado</th>
               <th class="white--text">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="formaPago in formaPagos" :key="formaPago.catalogo_FormaPago">
-              <td>{{ formaPago.catalogo_FormaPago }}</td>
-              <td>{{ formaPago.descripcion }}</td>
-              <td><v-switch v-if="modificar" v-model="formaPago.status" @click="cambiarStatus(formaPago.catalogo_FormaPago)"></v-switch></td>
+            <tr v-for="catalogoTipoDeComprobante in catalogoTipoDeComprobantes" :key="catalogoTipoDeComprobante.id_TipoComprobante">
+              <td>{{ catalogoTipoDeComprobante.id_TipoComprobante }}</td>
+              <td>{{ catalogoTipoDeComprobante.descripcion }}</td>
+              <td><v-switch v-if="modificar" v-model="catalogoTipoDeComprobante.status" @click="cambiarStatus(catalogoTipoDeComprobante.id_TipoComprobante)"></v-switch></td>
               <td>
-                <v-btn  color="#1976D2" small fab @click=" abrirModal(true, formaPago);" ><v-icon>mdi-pencil</v-icon></v-btn>
-                <!-- <v-btn color="#bf914c" small fab @click="eliminar(formaPago.id_formaPago)" ><v-icon>mdi-delete</v-icon></v-btn>  -->
+                <v-btn  color="#1976D2" small fab @click=" abrirModal(true, catalogoTipoDeComprobante);" ><v-icon>mdi-pencil</v-icon></v-btn>
               </td>
             </tr>
           </tbody>
@@ -39,33 +38,24 @@
         <v-card-title class="table--title"><h4>{{tituloModal}}</h4> <v-spacer></v-spacer> <v-btn @click="cerrarModal();"  type="button" data-dismiss="modal" color="red" fab small dark> X </v-btn></v-card-title>
         <v-card-text></v-card-text>
         <v-container>
-          <!-- 
-          <v-alert   :value="mostrar_error" duration="4000"  type="error"   transition="scale-transition">
-            {{errorApi}}
-          </v-alert> -->
+            <v-row>
+                <v-col cols="12" md="4">
+                    <v-text-field  v-model="catalogoTipoDeComprobante.id_TipoComprobante"  label="catalogo Moneda" required placeholder=""></v-text-field>
+                </v-col>
+            
+                <v-col cols="12" md="4">
+                    <v-text-field v-model="catalogoTipoDeComprobante.descripcion"  label="Descripcion" required  placeholder=""></v-text-field>
+                </v-col>
+                
 
-          <v-row>
-            
-            <v-col cols="12" md="4">
-              <v-text-field  v-model="formaPago.catalogo_FormaPago" type="number"  label="catalogo FormaPago" required placeholder="mdi-ejemplo"></v-text-field>
-            </v-col>
-            
-            <v-col cols="12" md="4">
-              <v-text-field v-model="formaPago.descripcion"  label="Descripcion" required  placeholder="ejeplo"></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4" >
-              <v-switch v-if="modificar" v-model="formaPago.status"></v-switch>
-              <!-- <v-select  v-if="!modificar" v-model="formaPago.status" :items="items" label="status " clearable></v-select> -->
-              <!-- <v-text-field v-model="formaPago.status"  :rules="nameRules" label="Ruta" required  placeholder="status"></v-text-field> -->
-            </v-col>
-            
-          </v-row>
+                <v-col cols="12" md="4" >
+                    <v-switch v-if="modificar" v-model="catalogoTipoDeComprobante.status"></v-switch>
+                </v-col>
+            </v-row>
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="cerrarModal();" type="button" data-dismiss="modal" color="error" > Cancelar</v-btn>
-          <!-- <v-btn  @click="mostrar_error = !mostrar_error   ;" type="submit " data-dismiss="modal" color="green darken-1" >Guardar</v-btn> -->
           <v-btn  @click="guardar()   ;" type="submit " data-dismiss="modal" color="green darken-1" >Guardar</v-btn>
         </v-card-actions>
       </v-card>
@@ -75,28 +65,23 @@
 <script>
 
   export default {
-    name:'catalogo_FormaPago',
+    name:'catalogo_TipoComprobante',
     data () {
       return {
         // recursos para la alerta
         mostrar_error: false,
-        errorApi:'Algo salio mal. Agrega un catalogo de forma de pago diferente',
+        errorApi:'Algo salio mal. Agrega un catalogo de Tipo de Comprobante diferente',
         timeout: 2000,
         // ------------------
 
-        select: this.catalogo_FormaPago,
-        items: [
-          { value: '0', text: 'Ocultar' },,
-          { value: '1', text: 'Mostrar' },,
-        ],
 
         modificar : true,
         dialog : 0,
         tituloModal: '',
-        formaPagos: [],
+        catalogoTipoDeComprobantes: [],
 
-        formaPago:{
-          catalogo_FormaPago:'',
+        catalogoTipoDeComprobante:{
+          id_TipoComprobante:'',
           descripcion:'',
           status:'',        
         },
@@ -104,11 +89,11 @@
     },
     methods:{
       async listar() {
-        const res = await axios.get('http://127.0.0.1:8000/api/FormaPago_mostrar');
-        this.formaPagos = res.data;
+        const res = await axios.get('http://127.0.0.1:8000/api/CatalogoSat_TipoDeComprobante_mostrar');
+        this.catalogoTipoDeComprobantes = res.data;
       },
-      async eliminar(catalogo_FormaPago) {
-        const res = await axios.delete('/api/FormaPagoEliminar/' + catalogo_FormaPago);
+      async eliminar(id_TipoComprobante) {
+        const res = await axios.delete('/api/CatalogoSat_TipoDeComprobante_Eliminar/' + this.catalogoTipoDeComprobante);
         // alert("Registro Eliminado")
         this.listar();
       }, 
@@ -117,10 +102,10 @@
       async guardar() {
         console.log('guardar'+this.modificar)
         if(this.modificar){
-          const res = await axios.post('/api/FormaPago_editar/'+this.catalogo_FormaPago, this.formaPago);
+          const res = await axios.post('/api/CatalogoSat_TipoDeComprobante_editar/'+this.id_TipoComprobante, this.catalogoTipoDeComprobante);
           // console.log(this.id);
         }else{
-          const res = await axios.post('/api/FormaPago_agregar', this.formaPago)
+          const res = await axios.post('/api/CatalogoSat_TipoDeComprobante_agregar', this.catalogoTipoDeComprobante)
            .then(function(response) {
             console.log("agregado correctamente");
             // console.log(response);
@@ -146,21 +131,20 @@
         console.log ('abrirmodal' + this.modificar);
         this.dialog=1;
         if(this.modificar){
-          this.tituloModal="Modificar Item";
-          this.formaPago.catalogo_FormaPago=data.catalogo_FormaPago;
-          this.formaPago.descripcion=data.descripcion;
-          this.formaPago.status=data.status;
+            this.tituloModal="Modificar Item";
+            this.catalogoTipoDeComprobante.id_TipoComprobante=data.id_TipoComprobante;
+            this.catalogoTipoDeComprobante.descripcion=data.descripcion;
+            this.catalogoTipoDeComprobante.status=data.status;
         }else{
-          this.mostrar_error= false,
-          this.tituloModal="Crear Item";
-          this.formaPago.catalogo_FormaPago='';
-          this.formaPago.descripcion='';
-          this.formaPago.status=true;
-
+            this.mostrar_error= false,
+            this.tituloModal="Crear Item";
+            this.catalogoTipoDeComprobante.id_TipoComprobante='';
+            this.catalogoTipoDeComprobante.descripcion='';
+            this.catalogoTipoDeComprobante.status=true;
         }
       },
-      async cambiarStatus(catalogo_FormaPago) {
-        const res = await axios.post('/api/FormaPago_cambiarEstatus/' + catalogo_FormaPago);
+      async cambiarStatus(id_TipoComprobante) {
+        const res = await axios.post('/api/CatalogoSat_TipoDeComprobantecambiarEstatus/' + id_TipoComprobante);
         // alert("Registro modificado")
         this.listar();
       }, 
