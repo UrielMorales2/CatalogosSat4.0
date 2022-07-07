@@ -3,7 +3,7 @@
     <v-alert   :value="mostrar_error" :timeout="timeout"    type="error"   transition="scale-transition">
       {{errorApi}}
     </v-alert>
-    <h1 class="text-center title__gestion">Catálogo de Moneda.</h1>
+    <h1 class="text-center title__gestion">Catálogo de Tipos de Relación.</h1>
     <hr />
     <!-- ---------------tabla-------------- -->
     <v-card class="mx-auto mt-100" color="transparent" max-width="1280" elevation="0"> 
@@ -12,21 +12,19 @@
         <template v-slot:default>
           <thead>
             <tr class="table--title">
-              <th class="white--text">Catalogo FormaPago</th>
+              <th class="white--text">id  Tipo De Relación </th>
               <th class="white--text">Descrpción</th>
-              <th class="white--text">Decimales</th>
               <th class="white--text">Estado</th>
               <th class="white--text">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalogoMoneda in catalogoMonedas" :key="catalogoMoneda.id_Catalogo_Moneda">
-              <td>{{ catalogoMoneda.id_Catalogo_Moneda }}</td>
-              <td>{{ catalogoMoneda.descripcion }}</td>
-              <td>{{ catalogoMoneda.decimales }}</td>
-              <td><v-switch v-model="catalogoMoneda.status" @click="cambiarStatus(catalogoMoneda.id_Catalogo_Moneda)"></v-switch></td>
+            <tr v-for="catalogoRelacion  in relacion" :key="catalogoRelacion .id_Relacion">
+              <td>{{ catalogoRelacion.id_Relacion }}</td>
+              <td>{{ catalogoRelacion.descripcion }}</td>
+              <td><v-switch  v-model="catalogoRelacion.status" @click="cambiarStatus(catalogoRelacion.id_Relacion)"></v-switch></td>
               <td>
-                <v-btn  color="#1976D2" small fab @click=" abrirModal(true, catalogoMoneda);" ><v-icon>mdi-pencil</v-icon></v-btn>
+                <v-btn  color="#1976D2" small fab @click=" abrirModal(true, catalogoRelacion);" ><v-icon>mdi-pencil</v-icon></v-btn>
               </td>
             </tr>
           </tbody>
@@ -37,23 +35,21 @@
     <!--ventana nuevo y editar n -->
     <v-dialog v-model="dialog" width="1200" height="1000" max-height="1200" max-width="2000">
       <v-card>
-        <v-card-title class="table--title"><h4>{{tituloModal}}</h4> <v-spacer></v-spacer> <v-btn @click="cerrarModal();"  type="button" data-dismiss="modal" color="red" fab small dark> X </v-btn></v-card-title>
+        <v-card-title class="table--title"><h4>{{tituloModal}}{{tituloNombre}}</h4> <v-spacer></v-spacer> <v-btn @click="cerrarModal();"  type="button" data-dismiss="modal" color="red" fab small dark> X </v-btn></v-card-title>
         <v-card-text></v-card-text>
         <v-container>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-text-field  v-model="catalogoMoneda.id_Catalogo_Moneda"  label="catalogo Moneda" required placeholder=""></v-text-field>
+                    <v-text-field  v-model="catalogoRelacion.id_Relacion"  label="id Tipo de Relación . " required placeholder=""></v-text-field>
                 </v-col>
             
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="catalogoMoneda.descripcion"  label="Descripcion" required  placeholder=""></v-text-field>
+                    <v-text-field v-model="catalogoRelacion.descripcion"  label="Descripcion" required  placeholder=""></v-text-field>
                 </v-col>
-                <v-col cols="12" md="4">
-                    <v-text-field v-model="catalogoMoneda.decimales"  label="Decimales" required  placeholder=""></v-text-field>
-                </v-col>
+                
 
                 <v-col cols="12" md="4" >
-                    <v-switch v-if="modificar" v-model="catalogoMoneda.status"></v-switch>
+                    <v-switch v-if="modificar" v-model="catalogoRelacion.status"></v-switch>
                 </v-col>
             </v-row>
         </v-container>
@@ -69,41 +65,36 @@
 <script>
 
   export default {
-    name:'catalogo_Moneda',
+    name:'catalogo_TipoRelacion',
     data () {
       return {
         // recursos para la alerta
         mostrar_error: false,
-        errorApi:'Algo salio mal. Agrega un catalogo de Moneda diferente',
+        errorApi:'Algo salio mal. Agrega un id diferente',
         timeout: 2000,
         // ------------------
 
-        select: this.catalogo_FormaPago,
-        items: [
-          { value: '0', text: 'Ocultar' },,
-          { value: '1', text: 'Mostrar' },,
-        ],
 
         modificar : true,
         dialog : 0,
         tituloModal: '',
-        catalogoMonedas: [],
+        tituloNombre: ' Tipo de Relación',
+        relacion: [],
 
-        catalogoMoneda:{
-          id_Catalogo_Moneda:'',
+        catalogoRelacion:{
+          id_Relacion:'',
           descripcion:'',
-          decimales:'',
           status:'',        
         },
       }
     },
     methods:{
       async listar() {
-        const res = await axios.get('http://127.0.0.1:8000/api/CatalogoSat_Moneda_mostrar');
-        this.catalogoMonedas = res.data;
+        const res = await axios.get('http://127.0.0.1:8000/api/CatalogoSat_TipoRelacion_mostrar');
+        this.relacion = res.data;
       },
-      async eliminar(id_Catalogo_Moneda) {
-        const res = await axios.delete('/api/MonedaEliminar/' + this.catalogoMoneda);
+      async eliminar(id_TipoRelacion) {
+        const res = await axios.delete('/api/CatalogoSat_TipoRelacion_Eliminar/' + this.catalogoRelacion);
         // alert("Registro Eliminado")
         this.listar();
       }, 
@@ -112,10 +103,10 @@
       async guardar() {
         console.log('guardar'+this.modificar)
         if(this.modificar){
-          const res = await axios.post('/api/CatalogoSat_Moneda_editar/'+this.id_Catalogo_Moneda, this.catalogoMoneda);
+          const res = await axios.post('/api/CatalogoSat_TipoRelacion_editar/'+this.id_Relacion, this.catalogoRelacion);
           // console.log(this.id);
         }else{
-          const res = await axios.post('/api/CatalogoSat_Moneda_agregar', this.catalogoMoneda)
+          const res = await axios.post('/api/CatalogoSat_TipoRelacion_agregar', this.catalogoRelacion)
            .then(function(response) {
             console.log("agregado correctamente");
             // console.log(response);
@@ -141,23 +132,20 @@
         console.log ('abrirmodal' + this.modificar);
         this.dialog=1;
         if(this.modificar){
-          this.tituloModal="Modificar Registro";
-          this.catalogoMoneda.id_Catalogo_Moneda=data.id_Catalogo_Moneda;
-          this.catalogoMoneda.descripcion=data.descripcion;
-          this.catalogoMoneda.decimales=data.decimales;
-          this.catalogoMoneda.status=data.status;
+            this.tituloModal="Modificar ";
+            this.catalogoRelacion.id_Relacion=data.id_Relacion;
+            this.catalogoRelacion.descripcion=data.descripcion;
+            this.catalogoRelacion.status=data.status;
         }else{
-          this.mostrar_error= false,
-          this.tituloModal="Crear Nuevo Registro";
-          this.catalogoMoneda.id_Catalogo_Moneda='';
-          this.catalogoMoneda.descripcion='';
-          this.catalogoMoneda.decimales='';
-          this.catalogoMoneda.status=true;
-
+            this.mostrar_error= false,
+            this.tituloModal="Crear Nuevo ";
+            this.catalogoRelacion.id_Relacion='';
+            this.catalogoRelacion.descripcion='';
+            this.catalogoRelacion.status=true;
         }
       },
-      async cambiarStatus(id_Catalogo_Moneda) {
-        const res = await axios.post('/api/CatalogoSat_MonedacambiarEstatus/' + id_Catalogo_Moneda);
+      async cambiarStatus(id_Relacion) {
+        const res = await axios.post('/api/CatalogoSat_TipoRelacioncambiarEstatus/' + id_Relacion);
         // alert("Registro modificado")
         this.listar();
       }, 

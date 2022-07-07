@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sat_exportacions', function (Blueprint $table) {
-            $table->string('id_Exportacion', 5) -> primary();
+        Schema::create('sat_regimen_fiscals', function (Blueprint $table) {
+            $table->string('id_RegimenFiscal', 5) -> primary();
             $table->string('descripcion');
+            $table->string('PersonaFisica');
+            $table->string('PersonaMoral');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sat_exportacions');
+        Schema::dropIfExists('sat_regimen_fiscals');
     }
 };

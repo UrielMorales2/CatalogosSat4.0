@@ -22,7 +22,7 @@
             <tr v-for="catalogoTipoDeComprobante in catalogoTipoDeComprobantes" :key="catalogoTipoDeComprobante.id_TipoComprobante">
               <td>{{ catalogoTipoDeComprobante.id_TipoComprobante }}</td>
               <td>{{ catalogoTipoDeComprobante.descripcion }}</td>
-              <td><v-switch v-if="modificar" v-model="catalogoTipoDeComprobante.status" @click="cambiarStatus(catalogoTipoDeComprobante.id_TipoComprobante)"></v-switch></td>
+              <td><v-switch  v-model="catalogoTipoDeComprobante.status" @click="cambiarStatus(catalogoTipoDeComprobante.id_TipoComprobante)"></v-switch></td>
               <td>
                 <v-btn  color="#1976D2" small fab @click=" abrirModal(true, catalogoTipoDeComprobante);" ><v-icon>mdi-pencil</v-icon></v-btn>
               </td>
@@ -40,7 +40,7 @@
         <v-container>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-text-field  v-model="catalogoTipoDeComprobante.id_TipoComprobante"  label="catalogo Moneda" required placeholder=""></v-text-field>
+                    <v-text-field  v-model="catalogoTipoDeComprobante.id_TipoComprobante"  label="id catalogo Tipos de Comprobante. " required placeholder=""></v-text-field>
                 </v-col>
             
                 <v-col cols="12" md="4">
@@ -131,13 +131,13 @@
         console.log ('abrirmodal' + this.modificar);
         this.dialog=1;
         if(this.modificar){
-            this.tituloModal="Modificar Item";
+            this.tituloModal="Modificar Registro";
             this.catalogoTipoDeComprobante.id_TipoComprobante=data.id_TipoComprobante;
             this.catalogoTipoDeComprobante.descripcion=data.descripcion;
             this.catalogoTipoDeComprobante.status=data.status;
         }else{
             this.mostrar_error= false,
-            this.tituloModal="Crear Item";
+            this.tituloModal="Crear Nuevo Registro";
             this.catalogoTipoDeComprobante.id_TipoComprobante='';
             this.catalogoTipoDeComprobante.descripcion='';
             this.catalogoTipoDeComprobante.status=true;

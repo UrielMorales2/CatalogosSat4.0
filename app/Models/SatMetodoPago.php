@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SatExportacion extends Model
+class SatMetodoPago extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_Exportacion',
+        'id_MetodoPago',
         'descripcion',
         'status',
     ];

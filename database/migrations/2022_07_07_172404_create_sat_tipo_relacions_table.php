@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sat_exportacions', function (Blueprint $table) {
-            $table->string('id_Exportacion', 5) -> primary();
+        Schema::create('sat_tipo_relacions', function (Blueprint $table) {
+            $table->string('id_Relacion', 5) -> primary();
             $table->string('descripcion');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sat_exportacions');
+        Schema::dropIfExists('sat_tipo_relacions');
     }
 };
