@@ -62,3 +62,57 @@ Route::get('/CatalogoSat_RegimenFiscal_mostrar', [CatalogoSatController::class, 
 Route::post('/CatalogoSat_RegimenFiscal_agregar', [CatalogoSatController::class, 'CatalogoSat_RegimenFiscal_agregar']);
 Route::post('/CatalogoSat_RegimenFiscal_editar/{id_Relacion}', [CatalogoSatController::class, 'CatalogoSat_RegimenFiscal_editar']);
 Route::post('/CatalogoSat_RegimenFiscalcambiarEstatus/{id_Relacion}', [CatalogoSatController::class, 'CatalogoSat_RegimenFiscalcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Paises.----------------------------------------------------
+Route::get('/CatalogoSat_Paises_mostrar', [CatalogoSatController::class, 'CatalogoSat_Paises_mostrar']);
+Route::post('/CatalogoSat_Paises_agregar', [CatalogoSatController::class, 'CatalogoSat_Paises_agregar']);
+Route::post('/CatalogoSat_Paises_editar/{id_Pais}', [CatalogoSatController::class, 'CatalogoSat_Paises_editar']);
+Route::post('/CatalogoSat_PaisescambiarEstatus/{id_Pais}', [CatalogoSatController::class, 'CatalogoSat_PaisescambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Uso CFDI.----------------------------------------------------
+Route::get('/CatalogoSat_UsoCFDI_mostrar', [CatalogoSatController::class, 'CatalogoSat_UsoCFDI_mostrar']);
+Route::post('/CatalogoSat_UsoCFDI_agregar', [CatalogoSatController::class, 'CatalogoSat_UsoCFDI_agregar']);
+Route::post('/CatalogoSat_UsoCFDI_editar/{id_UsoCFDI}', [CatalogoSatController::class, 'CatalogoSat_UsoCFDI_editar']);
+Route::post('/CatalogoSat_UsoCFDIcambiarEstatus/{id_UsoCFDI}', [CatalogoSatController::class, 'CatalogoSat_UsoCFDIcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de ClaveProdServ.----------------------------------------------------
+Route::get('/CatalogoSat_ClaveProdServ_mostrar', [CatalogoSatController::class, 'CatalogoSat_ClaveProdServ_mostrar']);
+Route::post('/CatalogoSat_ClaveProdServ_agregar', [CatalogoSatController::class, 'CatalogoSat_ClaveProdServ_agregar']);
+Route::post('/CatalogoSat_ClaveProdServ_editar/{id_ProdServ}', [CatalogoSatController::class, 'CatalogoSat_ClaveProdServ_editar']);
+Route::post('/CatalogoSat_ClaveProdServcambiarEstatus/{id_ProdServ}', [CatalogoSatController::class, 'CatalogoSat_ClaveProdServcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Clave Unidad.----------------------------------------------------
+Route::get('/CatalogoSat_ClaveUnidad_mostrar', [CatalogoSatController::class, 'CatalogoSat_ClaveUnidad_mostrar']);
+Route::post('/CatalogoSat_ClaveUnidad_agregar', [CatalogoSatController::class, 'CatalogoSat_ClaveUnidad_agregar']);
+Route::post('/CatalogoSat_ClaveUnidad_editar/{id_ClaveUnidad}', [CatalogoSatController::class, 'CatalogoSat_ClaveUnidad_editar']);
+Route::post('/CatalogoSat_ClaveUnidadcambiarEstatus/{id_ClaveUnidad}', [CatalogoSatController::class, 'CatalogoSat_ClaveUnidadcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Objeto Impuestos.----------------------------------------------------
+Route::get('/CatalogoSat_ObjetoImp_mostrar', [CatalogoSatController::class, 'CatalogoSat_ObjetoImp_mostrar']);
+Route::post('/CatalogoSat_ObjetoImp_agregar', [CatalogoSatController::class, 'CatalogoSat_ObjetoImp_agregar']);
+Route::post('/CatalogoSat_ObjetoImp_editar/{id_ObjetoImp}', [CatalogoSatController::class, 'CatalogoSat_ObjetoImp_editar']);
+Route::post('/CatalogoSat_ObjetoImpcambiarEstatus/{id_ObjetoImp}', [CatalogoSatController::class, 'CatalogoSat_ObjetoImpcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Impuestos.----------------------------------------------------
+Route::get('/CatalogoSat_impuesto_mostrar', [CatalogoSatController::class, 'CatalogoSat_impuesto_mostrar']);
+Route::post('/CatalogoSat_impuesto_agregar', [CatalogoSatController::class, 'CatalogoSat_impuesto_agregar']);
+Route::post('/CatalogoSat_impuesto_editar/{id_Impuesto}', [CatalogoSatController::class, 'CatalogoSat_impuesto_editar']);
+Route::post('/CatalogoSat_impuestocambiarEstatus/{id_Impuesto}', [CatalogoSatController::class, 'CatalogoSat_impuestocambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de TipoFactor.----------------------------------------------------
+Route::get('/CatalogoSat_TipoFactor_mostrar', [CatalogoSatController::class, 'CatalogoSat_TipoFactor_mostrar']);
+Route::post('/CatalogoSat_TipoFactor_agregar', [CatalogoSatController::class, 'CatalogoSat_TipoFactor_agregar']);
+Route::post('/CatalogoSat_TipoFactor_editar/{id}', [CatalogoSatController::class, 'CatalogoSat_TipoFactor_editar']);
+Route::post('/CatalogoSat_TipoFactorcambiarEstatus/{id}', [CatalogoSatController::class, 'CatalogoSat_TipoFactorcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Taza o cuota.----------------------------------------------------
+Route::get('/CatalogoSat_TasaOCuota_mostrar', [CatalogoSatController::class, 'CatalogoSat_TasaOCuota_mostrar']);
+Route::post('/CatalogoSat_TasaOCuota_agregar', [CatalogoSatController::class, 'CatalogoSat_TasaOCuota_agregar']);
+Route::post('/CatalogoSat_TasaOCuota_editar/{id}', [CatalogoSatController::class, 'CatalogoSat_TasaOCuota_editar']);
+Route::post('/CatalogoSat_TasaOCuotacambiarEstatus/{id}', [CatalogoSatController::class, 'CatalogoSat_TasaOCuotacambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Taza o cuota.----------------------------------------------------
+Route::get('/CatalogoSat_PatenteAduanal_mostrar', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_mostrar']);
+Route::post('/CatalogoSat_PatenteAduanal_agregar', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_agregar']);
+Route::post('/CatalogoSat_PatenteAduanal_editar/{id_PatenteAduanal}', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_editar']);
+Route::post('/CatalogoSat_PatenteAduanalcambiarEstatus/{id_PatenteAduanal}', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanalcambiarEstatus']);

@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sat_pais', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_Pais', 5) -> primary();
+            $table->string('descripcion');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
