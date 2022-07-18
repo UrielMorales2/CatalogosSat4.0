@@ -111,8 +111,44 @@ Route::post('/CatalogoSat_TasaOCuota_agregar', [CatalogoSatController::class, 'C
 Route::post('/CatalogoSat_TasaOCuota_editar/{id}', [CatalogoSatController::class, 'CatalogoSat_TasaOCuota_editar']);
 Route::post('/CatalogoSat_TasaOCuotacambiarEstatus/{id}', [CatalogoSatController::class, 'CatalogoSat_TasaOCuotacambiarEstatus']);
 
-// ------------------------------RUUTAS DEL Catálogo de Taza o cuota.----------------------------------------------------
+// ------------------------------RUUTAS DEL Catálogo de Patente Aduanal.----------------------------------------------------
 Route::get('/CatalogoSat_PatenteAduanal_mostrar', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_mostrar']);
 Route::post('/CatalogoSat_PatenteAduanal_agregar', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_agregar']);
 Route::post('/CatalogoSat_PatenteAduanal_editar/{id_PatenteAduanal}', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanal_editar']);
 Route::post('/CatalogoSat_PatenteAduanalcambiarEstatus/{id_PatenteAduanal}', [CatalogoSatController::class, 'CatalogoSat_PatenteAduanalcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Aduanas.----------------------------------------------------
+Route::get('/CatalogoSat_Aduanas_mostrar', [CatalogoSatController::class, 'CatalogoSat_Aduanas_mostrar']);
+Route::post('/CatalogoSat_Aduanas_agregar', [CatalogoSatController::class, 'CatalogoSat_Aduanas_agregar']);
+Route::post('/CatalogoSat_Aduanas_editar/{id_Aduana}', [CatalogoSatController::class, 'CatalogoSat_Aduanas_editar']);
+Route::post('/CatalogoSat_AduanascambiarEstatus/{id_Aduana}', [CatalogoSatController::class, 'CatalogoSat_AduanascambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de numpedimentosaduana.----------------------------------------------------
+Route::get('/CatalogoSat_NumPedimentoAduana_mostrar', [CatalogoSatController::class, 'CatalogoSat_NumPedimentoAduana_mostrar']);
+Route::post('/CatalogoSat_NumPedimentoAduana_agregar', [CatalogoSatController::class, 'CatalogoSat_NumPedimentoAduana_agregar']);
+Route::post('/CatalogoSat_NumPedimentoAduana_editar/{id}', [CatalogoSatController::class, 'CatalogoSat_NumPedimentoAduana_editar']);
+Route::post('/CatalogoSat_AduanasNumPedimentoAduanaEstatus/{id}', [CatalogoSatController::class, 'CatalogoSat_NumPedimentoAduanacambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de ESTADOS.----------------------------------------------------
+Route::get('/CatalogoSat_Estado_mostrar', [CatalogoSatController::class, 'CatalogoSat_Estado_mostrar']);
+Route::post('/CatalogoSat_Estado_agregar', [CatalogoSatController::class, 'CatalogoSat_Estado_agregar']);
+Route::post('/CatalogoSat_Estado_editar/{id_estado}', [CatalogoSatController::class, 'CatalogoSat_Estado_editar']);
+Route::post('/CatalogoSat_EstadocambiarEstatus/{id_estado}', [CatalogoSatController::class, 'CatalogoSat_EstadocambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Localidad.----------------------------------------------------
+Route::get('/CatalogoSat_Localidad_mostrar', [CatalogoSatController::class, 'CatalogoSat_Localidad_mostrar']);
+Route::post('/CatalogoSat_Localidad_agregar', [CatalogoSatController::class, 'CatalogoSat_Localidad_agregar']);
+Route::post('/CatalogoSat_Localidad_editar/{id}', [CatalogoSatController::class, 'CatalogoSat_Localidad_editar']);
+Route::post('/CatalogoSat_LocalidadcambiarEstatus/{id}', [CatalogoSatController::class, 'CatalogoSat_LocalidadcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Municipios.----------------------------------------------------
+Route::get('/CatalogoSat_Municipio_mostrar', [CatalogoSatController::class, 'CatalogoSat_Municipio_mostrar']);
+Route::post('/CatalogoSat_Municipio_agregar', [CatalogoSatController::class, 'CatalogoSat_Municipio_agregar']);
+Route::post('/CatalogoSat_Municipio_editar/{id_municipio}', [CatalogoSatController::class, 'CatalogoSat_Municipio_editar']);
+Route::post('/CatalogoSat_MunicipiocambiarEstatus/{id_municipio}', [CatalogoSatController::class, 'CatalogoSat_MunicipiocambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Municipios.----------------------------------------------------
+Route::get('/CatalogoSat_CP_mostrar', [CatalogoSatController::class, 'CatalogoSat_CP_mostrar']);
+Route::post('/CatalogoSat_CP_agregar', [CatalogoSatController::class, 'CatalogoSat_CP_agregar']);
+Route::post('/CatalogoSat_CP_editar/{id_CodigoPostal}', [CatalogoSatController::class, 'CatalogoSat_CP_editar']);
+Route::post('/CatalogoSat_CPcambiarEstatus/{id_CodigoPostal}', [CatalogoSatController::class, 'CatalogoSat_CPcambiarEstatus']);

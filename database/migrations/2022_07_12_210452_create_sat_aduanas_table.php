@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sat_aduanas', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_Aduana', 10) -> primary();
+            $table->string('descripcion');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

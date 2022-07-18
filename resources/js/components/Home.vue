@@ -25,6 +25,12 @@
       <catalogo_TipoFactor v-if="catalogo_TipoFactor"></catalogo_TipoFactor>
       <catalogo_TasaOcuota v-if="catalogo_TasaOcuota"></catalogo_TasaOcuota>
       <catalogo_PatenteAduanal v-if="catalogo_PatenteAduanal"></catalogo_PatenteAduanal>
+      <catalogo_Aduanas v-if="catalogo_Aduanas"></catalogo_Aduanas>
+      <catalogo_NumPEdimentoAduana v-if="catalogo_NumPEdimentoAduana"></catalogo_NumPEdimentoAduana>
+      <catalogo_Estado v-if="catalogo_Estado"></catalogo_Estado>
+      <catalogo_Localidad v-if="catalogo_Localidad"></catalogo_Localidad>
+      <catalogo_Municipio v-if="catalogo_Municipio"></catalogo_Municipio>
+      <catalogo_cp v-if="catalogo_cp"></catalogo_cp>
     </div>
   </v-container>
 </template>
@@ -48,6 +54,12 @@
   import catalogo_TipoFactor from "./CatalogosSat/CatalogoSat_TipoFactor.vue"
   import catalogo_TasaOcuota from "./CatalogosSat/CatalogoSat_Tasa_O_Cuota.vue"
   import catalogo_PatenteAduanal from "./CatalogosSat/CatalogoSat_PatenteAduanal.vue"
+  import catalogo_Aduanas from "./CatalogosSat/CatalogoSat_Aduanas.vue"
+  import catalogo_NumPEdimentoAduana from "./CatalogosSat/CatalogoSat_NumPedimentoAduena.vue"
+  import catalogo_Estado from "./CatalogosSat/CatalogoSat_Estados.vue"
+  import catalogo_Localidad from "./CatalogosSat/CatalogoSat_Localidad.vue"
+  import catalogo_Municipio from "./CatalogosSat/CatalogoSat_Municipios.vue"
+  import catalogo_cp from "./CatalogosSat/CatalogoSat_CodigosPostales.vue"
   export default {
     components:{
       catalogo_FormaPago,
@@ -68,6 +80,12 @@
       catalogo_TipoFactor,
       catalogo_TasaOcuota,
       catalogo_PatenteAduanal,
+      catalogo_Aduanas,
+      catalogo_NumPEdimentoAduana,
+      catalogo_Estado,
+      catalogo_Localidad,
+      catalogo_Municipio,
+      catalogo_cp,
     },
     data: () => ({
       selectItem:null,
@@ -94,16 +112,29 @@
       catalogo_TipoFactor: false,
       catalogo_TasaOcuota: false,
       catalogo_PatenteAduanal: false,
+      catalogo_Aduanas: false,
+      catalogo_NumPEdimentoAduana: false,
+      catalogo_Estado: false,
+      catalogo_Localidad: false,
+      catalogo_Municipio: false,
+      catalogo_cp: false,
+
       
       items: [
+        {text:'Catalogo de Aduanas', value:'catalogo_Aduanas', status:false},
         {text:'Catalogo de Clave Producto Servicio', value:'catalogo_prodServ', status:false},
         {text:'Catalogo de Clave unidades de medida para los conceptos en el CFDI.', value:'catalogo_claveUnidad', status:false},
+        {text:'Catalogo de Códigos Postales.', value:'catalogo_cp', status:false},
+        {text:'Catalogo de Estados.', value:'catalogo_Estado', status:false},
         {text:'Catalogo de Exportacion', value:'catalogo_Exportacion', status:false},
         {text:'Catalogo de Forma de Pago', value:'catalogo_FormaPago' , status:false},
         {text:'Catalogo de Impuesto', value:'catalogo_Impuesto' , status:false},
+        {text:'Catalogo de Localidad', value:'catalogo_Localidad' , status:false},
         {text:'Catalogo de Meses', value:'catalogo_Meses' , status:false},
         {text:'Catalogo de Metodo Pago', value:'catalogo_MetodoPago', status:false},
         {text:'Catalogo de Moneda', value:'catalogo_Moneda', status:false},
+        {text:'Catalogo de Municipios', value:'catalogo_Municipio', status:false},
+        {text:'Catálogo de números de pedimento operados por aduana y ejercicio.', value:'catalogo_NumPEdimentoAduana', status:false},
         {text:'Catalogo de Objeto Impuesto', value:'catalogo_ObjetoImp', status:false},
         {text:'Catalogo de Paises', value:'catalogo_Pais', status:false},
         {text:'Catalogo de Patente Aduanal', value:'catalogo_PatenteAduanal', status:false},
@@ -137,6 +168,12 @@
         this.catalogo_TipoFactor = valor;
         this.catalogo_TasaOcuota = valor;
         this.catalogo_PatenteAduanal = valor;
+        this.catalogo_Aduanas = valor;
+        this.catalogo_NumPEdimentoAduana = valor;
+        this.catalogo_Estado = valor;
+        this.catalogo_Localidad = valor;
+        this.catalogo_Municipio = valor;
+        this.catalogo_cp = valor;
       },
       changeState(valor) {
         this.selecionado = this.items[valor];
@@ -214,6 +251,30 @@
           case 'catalogo_PatenteAduanal':
             this.ocultar(false);
             this.catalogo_PatenteAduanal = true;
+          break;
+          case 'catalogo_Aduanas':
+            this.ocultar(false);
+            this.catalogo_Aduanas = true;
+          break;
+          case 'catalogo_NumPEdimentoAduana':
+            this.ocultar(false);
+            this.catalogo_NumPEdimentoAduana = true;
+          break;
+          case 'catalogo_Estado':
+            this.ocultar(false);
+            this.catalogo_Estado = true;
+          break;
+          case 'catalogo_Localidad':
+            this.ocultar(false);
+            this.catalogo_Localidad = true;
+          break;
+          case 'catalogo_Municipio':
+            this.ocultar(false);
+            this.catalogo_Municipio = true;
+          break;
+          case 'catalogo_cp':
+            this.ocultar(false);
+            this.catalogo_cp = true;
           break;
         }
       },

@@ -21,6 +21,12 @@ use App\Models\Sat_Impuestos;
 use App\Models\Sat_TipoFactor;
 use App\Models\Sat_TasaOCuota;
 use App\Models\SatPatenteAduanal;
+use App\Models\SatAduana;
+use App\Models\SatNumPedimentoA;
+use App\Models\SatEstado;
+use App\Models\SatLocalidades;
+use App\Models\SatMunicipios;
+use App\Models\SatCodigoPostales;
 
 
 class CatalogoSatController extends Controller
@@ -722,8 +728,8 @@ class CatalogoSatController extends Controller
             $pA->save();
             return response($pA, 200);
         } catch (\Exception $e) {
-            // return response( "el campo id  ya existe, ingrese uno diferente", 400);
-         return $e;
+            return response( "el campo id  ya existe, ingrese uno diferente", 400);
+        //  return $e;
         }   
     }
     public function CatalogoSat_PatenteAduanal_editar($id_PatenteAduanal, Request $request )
@@ -743,4 +749,224 @@ class CatalogoSatController extends Controller
             return response()->json($data);
     }
 
+     // ------------------------------Catálogo Aduanas .----------------------------------------------------
+     public function CatalogoSat_Aduanas_mostrar()
+     {
+         $aduana = SatAduana::all();
+         return \response($aduana);
+     }
+    public function CatalogoSat_Aduanas_agregar(Request $request)
+    {  
+        try{
+            // return "hola";
+            $aduana = new SatAduana();
+            $aduana->fill($request->all());
+            
+            $aduana->save();
+            return response($aduana, 200);
+        } catch (\Exception $e) {
+            // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+        return $e;
+        }   
+    }
+    public function CatalogoSat_Aduanas_editar($id_Aduana, Request $request )
+    {
+        $aduana = SatAduana::where('id_Aduana',$request-> id_Aduana)->update($request->all()) ;
+        return $aduana;
+    }
+    public function CatalogoSat_AduanascambiarEstatus($id_Aduana)
+    {        
+        $estadoActual = SatAduana::where('id_Aduana', $id_Aduana) -> first();        
+        $aduana = SatAduana::where('id_Aduana', $id_Aduana) -> update(['status' => !$estadoActual->status]);
+    
+            $data=[
+                'status'=>$aduana,
+                'msg'=>'update'
+            ];       
+            return response()->json($data);
+    }
+
+    
+    // ------------------------------Catálogo numPedimentoAduana .----------------------------------------------------
+    public function CatalogoSat_NumPedimentoAduana_mostrar()
+    {
+        $aduana = SatNumPedimentoA::all();
+        return \response($aduana);
+    }
+   public function CatalogoSat_NumPedimentoAduana_agregar(Request $request)
+   {  
+       try{
+           // return "hola";
+           $aduana = new SatNumPedimentoA();
+           $aduana->fill($request->all());
+           
+           $aduana->save();
+           return response($aduana, 200);
+       } catch (\Exception $e) {
+           // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+       return $e;
+       }   
+   }
+   public function CatalogoSat_NumPedimentoAduana_editar($id, Request $request )
+   {
+       $aduana = SatNumPedimentoA::where('id',$request-> id)->update($request->all()) ;
+       return $aduana;
+   }
+   public function CatalogoSat_NumPedimentoAduanacambiarEstatus($id)
+   {        
+       $estadoActual = SatNumPedimentoA::where('id', $id) -> first();        
+       $aduana = SatNumPedimentoA::where('id', $id) -> update(['status' => !$estadoActual->status]);
+   
+           $data=[
+               'status'=>$aduana,
+               'msg'=>'update'
+           ];       
+           return response()->json($data);
+   }
+
+   // ------------------------------Catálogo ESTADO .----------------------------------------------------
+    public function CatalogoSat_Estado_mostrar()
+    {
+        $estado = SatEstado::all();
+        return \response($estado);
+    }
+   public function CatalogoSat_Estado_agregar(Request $request)
+   {  
+       try{
+           // return "hola";
+           $estado = new SatEstado();
+           $estado->fill($request->all());
+           
+           $estado->save();
+           return response($estado, 200);
+       } catch (\Exception $e) {
+           // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+       return $e;
+       }   
+   }
+   public function CatalogoSat_Estado_editar($id_estado, Request $request )
+   {
+       $estado = SatEstado::where('id_estado',$request-> id_estado)->update($request->all()) ;
+       return $estado;
+   }
+   public function CatalogoSat_EstadocambiarEstatus($id_estado)
+   {        
+       $estadoActual = SatEstado::where('id_estado', $id_estado) -> first();        
+       $estado = SatEstado::where('id_estado', $id_estado) -> update(['status' => !$estadoActual->status]);
+   
+           $data=[
+               'status'=>$estado,
+               'msg'=>'update'
+           ];       
+           return response()->json($data);
+   }
+
+    // ------------------------------Catálogo Localidad .----------------------------------------------------
+    public function CatalogoSat_Localidad_mostrar()
+    {
+        $localidad = SatLocalidades::all();
+        return \response($localidad);
+    }
+    public function CatalogoSat_Localidad_agregar(Request $request)
+    {  
+        try{
+            // return "hola";
+            $localidad = new SatLocalidades();
+            $localidad->fill($request->all());
+        //   return $request;
+            $localidad->save();
+            return response($localidad, 200);
+        } catch (\Exception $e) {
+            // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+        return $e;
+        }   
+    }
+    public function CatalogoSat_Localidad_editar($id, Request $request )
+    {
+        $localidad = SatLocalidades::where('id',$request-> id)->update($request->all()) ;
+        return $localidad;
+    }
+    public function CatalogoSat_LocalidadcambiarEstatus($id)
+    {        
+        $estadoActual = SatLocalidades::where('id', $id) -> first();        
+        $localidad = SatLocalidades::where('id', $id) -> update(['status' => !$estadoActual->status]);
+
+            $data=[
+                'status'=>$localidad,
+                'msg'=>'update'
+            ];       
+            return response()->json($data);
+    }
+     // ------------------------------Catálogo Municipios .----------------------------------------------------
+   public function CatalogoSat_Municipio_mostrar()
+   {
+       $municipio = SatMunicipios::all();
+       return \response($municipio);
+   }
+  public function CatalogoSat_Municipio_agregar(Request $request)
+  {  
+      try{
+          // return "hola";
+          $municipio = new SatMunicipios();
+          $municipio->fill($request->all());
+        //   return $request;
+          $municipio->save();
+          return response($municipio, 200);
+      } catch (\Exception $e) {
+          // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+      return $e;
+      }   
+  }
+  public function CatalogoSat_Municipio_editar($id_municipio, Request $request )
+  {
+      $municipio = SatMunicipios::where('id_municipio',$request-> id_municipio)->update($request->all()) ;
+      return $municipio;
+  }
+  public function CatalogoSat_MunicipiocambiarEstatus($id_municipio)
+  {        
+      $estadoActual = SatMunicipios::where('id_municipio', $id_municipio) -> first();        
+      $municipio = SatMunicipios::where('id_municipio', $id_municipio) -> update(['status' => !$estadoActual->status]);
+  
+          $data=[
+              'status'=>$municipio,
+              'msg'=>'update'
+          ];       
+          return response()->json($data);
+  }  
+   // ------------------------------Catálogo Codigos Pstales .----------------------------------------------------
+   public function CatalogoSat_CP_mostrar()
+   {
+       $cp = SatCodigoPostales::all();
+       return \response($cp);
+   }
+  public function CatalogoSat_CP_agregar(Request $request)
+  {  
+      try{
+          // return "hola";
+          $cp = new SatCodigoPostales();
+          $cp->fill($request->all());
+        //   return $request;
+          $cp->save();
+          return response($cp, 200);
+      } catch (\Exception $e) {
+          // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+      return $e;
+      }   
+  }
+  public function CatalogoSat_CP_editar($id_CodigoPostal, Request $request )
+  {
+      $cp = SatCodigoPostales::where('id_CodigoPostal',$request-> id_CodigoPostal)->update($request->all()) ;
+      return $cp;
+  }
+  public function CatalogoSat_CPcambiarEstatus($id_CodigoPostal)
+  {        
+      $estadoActual = SatCodigoPostales::where('id_CodigoPostal', $id_CodigoPostal) -> first();        
+      $cp = SatCodigoPostales::where('id_CodigoPostal', $id_CodigoPostal) -> update(['status' => !$estadoActual->status]);
+  
+          $data=[
+              'status'=>$cp,
+              'msg'=>'update'
+          ];       
+          return response()->json($data);
+  }  
 }
