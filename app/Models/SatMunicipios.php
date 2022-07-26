@@ -9,6 +9,7 @@ class SatMunicipios extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id_M',
         'id_municipio',
         'estado_id',
         'descripcion',

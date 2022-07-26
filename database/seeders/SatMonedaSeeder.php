@@ -15,7 +15,7 @@ class SatMonedaSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sat_tipo_de_comprobantes')->insert([
+        DB::table('sat_monedas')->insert([
             'id_Catalogo_Moneda' => 'AED',
             'descripcion' => 'Dirham de EAU	',
             'decimales' => '2',

@@ -31,6 +31,7 @@
       <catalogo_Localidad v-if="catalogo_Localidad"></catalogo_Localidad>
       <catalogo_Municipio v-if="catalogo_Municipio"></catalogo_Municipio>
       <catalogo_cp v-if="catalogo_cp"></catalogo_cp>
+      <catalogo_colonia v-if="catalogo_colonia"></catalogo_colonia>
     </div>
   </v-container>
 </template>
@@ -60,6 +61,7 @@
   import catalogo_Localidad from "./CatalogosSat/CatalogoSat_Localidad.vue"
   import catalogo_Municipio from "./CatalogosSat/CatalogoSat_Municipios.vue"
   import catalogo_cp from "./CatalogosSat/CatalogoSat_CodigosPostales.vue"
+  import catalogo_colonia from "./CatalogosSat/CatalogoSat_Colonias.vue"
   export default {
     components:{
       catalogo_FormaPago,
@@ -86,6 +88,7 @@
       catalogo_Localidad,
       catalogo_Municipio,
       catalogo_cp,
+      catalogo_colonia,
     },
     data: () => ({
       selectItem:null,
@@ -118,6 +121,7 @@
       catalogo_Localidad: false,
       catalogo_Municipio: false,
       catalogo_cp: false,
+      catalogo_colonia: false,
 
       
       items: [
@@ -125,6 +129,7 @@
         {text:'Catalogo de Clave Producto Servicio', value:'catalogo_prodServ', status:false},
         {text:'Catalogo de Clave unidades de medida para los conceptos en el CFDI.', value:'catalogo_claveUnidad', status:false},
         {text:'Catalogo de Códigos Postales.', value:'catalogo_cp', status:false},
+        {text:'Catalogo de Colonias.', value:'catalogo_colonia', status:false},
         {text:'Catalogo de Estados.', value:'catalogo_Estado', status:false},
         {text:'Catalogo de Exportacion', value:'catalogo_Exportacion', status:false},
         {text:'Catalogo de Forma de Pago', value:'catalogo_FormaPago' , status:false},
@@ -174,6 +179,7 @@
         this.catalogo_Localidad = valor;
         this.catalogo_Municipio = valor;
         this.catalogo_cp = valor;
+        this.catalogo_colonia = valor;
       },
       changeState(valor) {
         this.selecionado = this.items[valor];
@@ -275,6 +281,10 @@
           case 'catalogo_cp':
             this.ocultar(false);
             this.catalogo_cp = true;
+          break;
+          case 'catalogo_colonia':
+            this.ocultar(false);
+            this.catalogo_colonia = true;
           break;
         }
       },

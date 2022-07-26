@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sat_localidades', function (Blueprint $table) {
-            $table->string('id_Localidad', 10)->primary();
+            $table->increments('id_L');
+            $table->string('id_Localidad', 10);
             $table->string('estado_id', 10);
 
             $table->foreign('estado_id')->references('id_estado')->on('sat_estados');

@@ -20,11 +20,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalogoMunicipio in catalogoMunicipios" :key="catalogoMunicipio.id_municipio">
+            <tr v-for="catalogoMunicipio in catalogoMunicipios" :key="catalogoMunicipio.id_M">
               <td>{{ catalogoMunicipio.id_municipio }}</td>
               <td>{{ catalogoMunicipio.estado_id }}</td>
               <td>{{ catalogoMunicipio.descripcion }}</td>
-              <td><v-switch v-model="catalogoMunicipio.status" @click="cambiarStatus(catalogoMunicipio.id_municipio)"></v-switch></td>
+              <td><v-switch v-model="catalogoMunicipio.status" @click="cambiarStatus(catalogoMunicipio.id_M)"></v-switch></td>
               <td>
                 <v-btn  color="#1976D2" small fab @click=" abrirModal(true, catalogoMunicipio);" ><v-icon>mdi-pencil</v-icon></v-btn>
               </td>
@@ -41,6 +41,7 @@
         <v-card-text></v-card-text>
         <v-container>
             <v-row>
+              <input type="" v-model="catalogoMunicipio.id_M" hidden>
                 <v-col cols="12" md="4">
                     <v-text-field  v-model="catalogoMunicipio.id_municipio"  label="id Municipio" required placeholder=""></v-text-field>
                 </v-col>
@@ -99,7 +100,7 @@
       async guardar() {
         console.log('guardar'+this.modificar)
         if(this.modificar){
-          const res = await axios.post('/api/CatalogoSat_Municipio_editar/'+this.id_municipio, this.catalogoMunicipio);
+          const res = await axios.post('/api/CatalogoSat_Municipio_editar/'+this.id_M, this.catalogoMunicipio);
           // console.log(this.id);
         }else{
           const res = await axios.post('/api/CatalogoSat_Municipio_agregar', this.catalogoMunicipio)
@@ -125,6 +126,7 @@
         console.log ('abrirmodal' + this.modificar);
         this.dialog=1;
         if(this.modificar){
+          this.id_M=data.id_M;
           this.tituloModal="Modificar Registro";
           this.catalogoMunicipio.id_municipio=data.id_municipio;
           this.catalogoMunicipio.estado_id=data.estado_id;
@@ -132,6 +134,7 @@
           this.catalogoMunicipio.status=data.status;
         }else{
           this.mostrar_error= false,
+           this.id_M=0;
           this.tituloModal="Crear Nuevo Registro";
           this.catalogoMunicipio.id_municipio='';
           this.catalogoMunicipio.estado_id='';

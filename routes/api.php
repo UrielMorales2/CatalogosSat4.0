@@ -152,3 +152,9 @@ Route::get('/CatalogoSat_CP_mostrar', [CatalogoSatController::class, 'CatalogoSa
 Route::post('/CatalogoSat_CP_agregar', [CatalogoSatController::class, 'CatalogoSat_CP_agregar']);
 Route::post('/CatalogoSat_CP_editar/{id_CodigoPostal}', [CatalogoSatController::class, 'CatalogoSat_CP_editar']);
 Route::post('/CatalogoSat_CPcambiarEstatus/{id_CodigoPostal}', [CatalogoSatController::class, 'CatalogoSat_CPcambiarEstatus']);
+
+// ------------------------------RUUTAS DEL Catálogo de Colonias.----------------------------------------------------
+Route::get('/CatalogoSat_Colonia_mostrar', [CatalogoSatController::class, 'CatalogoSat_Colonia_mostrar']);
+Route::post('/CatalogoSat_Colonia_agregar', [CatalogoSatController::class, 'CatalogoSat_Colonia_agregar']);
+Route::post('/CatalogoSat_Colonia_editar/{id_colonia}', [CatalogoSatController::class, 'CatalogoSat_Colonia_editar']);
+Route::post('/CatalogoSat_ColoniacambiarEstatus/{id_colonia}', [CatalogoSatController::class, 'CatalogoSat_ColoniacambiarEstatus']);

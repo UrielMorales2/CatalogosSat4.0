@@ -20,11 +20,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="Localidad in factor" :key="Localidad.id_Localidad">
+            <tr v-for="Localidad in factor" :key="Localidad.id_L">
               <td>{{ Localidad.id_Localidad }}</td>
               <td>{{ Localidad.estado_id }}</td>
               <td>{{ Localidad.descripcion }}</td>
-              <td><v-switch v-model="Localidad.status" @click="cambiarStatus(Localidad.id_Localidad)"></v-switch></td>
+              <td><v-switch v-model="Localidad.status" @click="cambiarStatus(Localidad.id_L)"></v-switch></td>
               <td>
                 <v-btn  color="#1976D2" small fab @click=" abrirModal(true, Localidad);" ><v-icon>mdi-pencil</v-icon></v-btn>
                
@@ -43,6 +43,7 @@
         <v-container>
          
           <v-row>
+             <input type="" v-model="Localidad.id_L" hidden>
             <v-col cols="12" md="4">
               <v-text-field  v-model="Localidad.id_Localidad"   label="id Localidad"></v-text-field>
             </v-col>
@@ -139,7 +140,7 @@
       async guardar() {
         console.log('guardar'+this.modificar)
         if(this.modificar){
-          const res = await axios.post('/api/CatalogoSat_Localidad_editar/'+this.id_Localidad, this.Localidad);
+          const res = await axios.post('/api/CatalogoSat_Localidad_editar/'+this.id_L, this.Localidad);
           // console.log(this.id);
         }else{
           const res = await axios.post('/api/CatalogoSat_Localidad_agregar', this.Localidad)
@@ -168,6 +169,7 @@
         console.log ('abrirmodal' + this.modificar);
         this.dialog=1;
         if(this.modificar){
+           this.id_L=data.id_L;
             this.tituloModal="Modificar ";
             this.Localidad.id_Localidad=data.id_Localidad;
             this.Localidad.estado_id=data.estado_id;
@@ -175,6 +177,7 @@
             this.Localidad.status=data.status;
         }else{
             this.mostrar_error= false,
+            this.id_L=0;
             this.tituloModal="Crear Nuevo ";
             this.Localidad.id_Localidad='';
             this.Localidad.estado_id='';
@@ -182,12 +185,16 @@
             this.Localidad.status=true;
         }
       },
-      async cambiarStatus(id) {
-        const res = await axios.post('/api/CatalogoSat_LocalidadcambiarEstatus/' + id_Localidad);
+      async cambiarStatus(id_L) {
+        const res = await axios.post('/api/CatalogoSat_LocalidadcambiarEstatus/' + id_L);
         // alert("Registro modificado")
         this.listar();
       }, 
       
+      // async MostrarEstados() {
+      //   const res = await axios.get('http://127.0.0.1:8000/api/CatalogoSat_Estado_mostrar');
+      //   this.estados = res.data;
+      // }, 
     
     },
     created() {

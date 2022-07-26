@@ -26,7 +26,8 @@ use App\Models\SatNumPedimentoA;
 use App\Models\SatEstado;
 use App\Models\SatLocalidades;
 use App\Models\SatMunicipios;
-use App\Models\SatCodigoPostales;
+use App\Models\SatCodigoPostal;
+use App\Models\SatColonias;
 
 
 class CatalogoSatController extends Controller
@@ -881,15 +882,15 @@ class CatalogoSatController extends Controller
         return $e;
         }   
     }
-    public function CatalogoSat_Localidad_editar($id, Request $request )
+    public function CatalogoSat_Localidad_editar($id_L, Request $request )
     {
-        $localidad = SatLocalidades::where('id',$request-> id)->update($request->all()) ;
+        $localidad = SatLocalidades::where('id_L',$request-> id_L)->update($request->all()) ;
         return $localidad;
     }
-    public function CatalogoSat_LocalidadcambiarEstatus($id)
+    public function CatalogoSat_LocalidadcambiarEstatus($id_L)
     {        
-        $estadoActual = SatLocalidades::where('id', $id) -> first();        
-        $localidad = SatLocalidades::where('id', $id) -> update(['status' => !$estadoActual->status]);
+        $estadoActual = SatLocalidades::where('id_L', $id_L) -> first();        
+        $localidad = SatLocalidades::where('id_L', $id_L) -> update(['status' => !$estadoActual->status]);
 
             $data=[
                 'status'=>$localidad,
@@ -917,15 +918,15 @@ class CatalogoSatController extends Controller
       return $e;
       }   
   }
-  public function CatalogoSat_Municipio_editar($id_municipio, Request $request )
+  public function CatalogoSat_Municipio_editar($id_M, Request $request )
   {
-      $municipio = SatMunicipios::where('id_municipio',$request-> id_municipio)->update($request->all()) ;
+      $municipio = SatMunicipios::where('id_M',$request-> id_M)->update($request->all()) ;
       return $municipio;
   }
-  public function CatalogoSat_MunicipiocambiarEstatus($id_municipio)
+  public function CatalogoSat_MunicipiocambiarEstatus($id_M)
   {        
-      $estadoActual = SatMunicipios::where('id_municipio', $id_municipio) -> first();        
-      $municipio = SatMunicipios::where('id_municipio', $id_municipio) -> update(['status' => !$estadoActual->status]);
+      $estadoActual = SatMunicipios::where('id_M', $id_M) -> first();        
+      $municipio = SatMunicipios::where('id_M', $id_M) -> update(['status' => !$estadoActual->status]);
   
           $data=[
               'status'=>$municipio,
@@ -936,14 +937,14 @@ class CatalogoSatController extends Controller
    // ------------------------------Catálogo Codigos Pstales .----------------------------------------------------
    public function CatalogoSat_CP_mostrar()
    {
-       $cp = SatCodigoPostales::all();
+       $cp = SatCodigoPostal::all();
        return \response($cp);
    }
   public function CatalogoSat_CP_agregar(Request $request)
   {  
       try{
           // return "hola";
-          $cp = new SatCodigoPostales();
+          $cp = new SatCodigoPostal();
           $cp->fill($request->all());
         //   return $request;
           $cp->save();
@@ -955,13 +956,13 @@ class CatalogoSatController extends Controller
   }
   public function CatalogoSat_CP_editar($id_CodigoPostal, Request $request )
   {
-      $cp = SatCodigoPostales::where('id_CodigoPostal',$request-> id_CodigoPostal)->update($request->all()) ;
+      $cp = SatCodigoPostal::where('id_CodigoPostal',$request-> id_CodigoPostal)->update($request->all()) ;
       return $cp;
   }
   public function CatalogoSat_CPcambiarEstatus($id_CodigoPostal)
   {        
-      $estadoActual = SatCodigoPostales::where('id_CodigoPostal', $id_CodigoPostal) -> first();        
-      $cp = SatCodigoPostales::where('id_CodigoPostal', $id_CodigoPostal) -> update(['status' => !$estadoActual->status]);
+      $estadoActual = SatCodigoPostal::where('id_CodigoPostal', $id_CodigoPostal) -> first();        
+      $cp = SatCodigoPostal::where('id_CodigoPostal', $id_CodigoPostal) -> update(['status' => !$estadoActual->status]);
   
           $data=[
               'status'=>$cp,
@@ -969,4 +970,41 @@ class CatalogoSatController extends Controller
           ];       
           return response()->json($data);
   }  
+
+  // ------------------------------Catálogo Colonia .----------------------------------------------------
+  public function CatalogoSat_Colonia_mostrar()
+  {
+      $col = SatColonias::all();
+      return \response($col);
+  }
+ public function CatalogoSat_Colonia_agregar(Request $request)
+ {  
+     try{
+         // return "hola";
+         $col = new SatColonias();
+         $col->fill($request->all());
+         
+         $col->save();
+         return response($col, 200);
+     } catch (\Exception $e) {
+         // return response( "el campo id  ya existe, ingrese uno diferente", 400);
+     return $e;
+     }   
+ }
+ public function CatalogoSat_Colonia_editar($id_colonia, Request $request )
+ {
+     $col = SatColonias::where('id_colonia',$request-> id_colonia)->update($request->all()) ;
+     return $col;
+ }
+ public function CatalogoSat_ColoniacambiarEstatus($id_colonia)
+ {        
+     $estadoActual = SatColonias::where('id_colonia', $id_colonia) -> first();        
+     $col = SatColonias::where('id_colonia', $id_colonia) -> update(['status' => !$estadoActual->status]);
+ 
+         $data=[
+             'status'=>$col,
+             'msg'=>'update'
+         ];       
+         return response()->json($data);
+ }
 }
